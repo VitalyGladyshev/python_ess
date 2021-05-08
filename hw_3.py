@@ -41,6 +41,7 @@ if answer == 'д':
     if f_div_res is not None:
         print(f"Результат деления {str_divisible} на {str_divisor} равен {f_div_res}")
 
+
 # 2. Реализовать функцию, принимающую несколько параметров,
 # описывающих данные пользователя: имя, фамилия, год рождения, город проживания, email, телефон.
 # Функция должна принимать параметры как именованные аргументы.
@@ -54,7 +55,7 @@ def print_user_data(name: str,
                     email: str,
                     phone: str) -> None:
     """
-    распечатывает строку с данными пользователя
+    Распечатывает строку с данными пользователя
 
     :param name: имя
     :param surname: фамилия
@@ -87,13 +88,14 @@ if answer == 'д':
     }
     print_user_data(**kwargs)
 
+
 # 3. Реализовать функцию my_func(), которая принимает три позиционных аргумента,
 # и возвращает сумму наибольших двух аргументов.
 
 
 def my_func_sum(par1: float, par2: float, par3: float) -> float:
     """
-    возвращает сумму наибольших двух параметров
+    Возвращает сумму наибольших двух параметров
 
     :param par1: параметр 1
     :param par2: параметр 2
@@ -114,6 +116,7 @@ if answer == 'д':
     else:
         print(f"Сумма наибольших двух аргументов: {my_func_sum(f_arg1, f_arg2, f_arg3)}")
 
+
 # 4. Программа принимает действительное положительное число x и целое отрицательное число y.
 # Необходимо выполнить возведение числа x в степень y.
 # Задание необходимо реализовать в виде функции my_func(x, y).
@@ -126,10 +129,10 @@ def my_func_exp(num: float, exp: int) -> float:
 
     :param num: возводимое в степень число
     :param exp: показатель степени
-    :return: Число num в степени exp
+    :return: число num в степени exp
     """
     res = num
-    for _ in range(abs(exp)-1):
+    for _ in range(abs(exp) - 1):
         res *= num
     if exp == 0:
         return 1.
@@ -168,7 +171,7 @@ if answer == 'д':
     f_res = 0
     b_exit = False
     while True:
-        income_list = list(input("Введите сроку чисел разделённых пробелами (для выхода введите 'стоп'): ").split())
+        income_list = list(input("\nВведите сроку чисел разделённых пробелами (для выхода введите 'стоп'): ").split())
         for el in income_list:
             if el == 'стоп':
                 b_exit = True
@@ -182,6 +185,7 @@ if answer == 'д':
         print(f"Сумма: {f_res}")
         if b_exit:
             break
+
 
 # 6. Реализовать функцию int_func(), принимающую слово из маленьких латинских букв и возвращающую его же,
 # но с прописной первой буквой. Например, print(int_func(‘text’)) -> Text.
@@ -204,7 +208,7 @@ def int_func(in_str: str) -> str:
 answer = input("\nЗадание 6 (д/н)? ")
 if answer == 'д':
     str_res = ''
-    inc_list = input("Введите строку из слов, разделенных пробелом: ").split()
+    inc_list = input("\nВведите строку из слов, разделенных пробелом: ").split()
     for wd in inc_list:
         str_res += (int_func(wd) + ' ')
     print(str_res)
