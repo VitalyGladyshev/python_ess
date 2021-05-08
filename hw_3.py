@@ -90,20 +90,70 @@ if answer == 'д':
 # 3. Реализовать функцию my_func(), которая принимает три позиционных аргумента,
 # и возвращает сумму наибольших двух аргументов.
 
-answer = input("\nЗадание 3 (д/н)? ")
 
+def my_func_sum(par1: float, par2: float, par3: float) -> float:
+    """
+    возвращает сумму наибольших двух параметров
+
+    :param par1: параметр 1
+    :param par2: параметр 2
+    :param par3: параметр 3
+    :return: сумма наибольших двух параметров
+    """
+    return par1 + par2 + par3 - min(par1, par2, par3)
+
+
+answer = input("\nЗадание 3 (д/н)? ")
 if answer == 'д':
-    pass
+    try:
+        f_arg1 = float(input("\nВведите первый аргумент: "))
+        f_arg2 = float(input("Введите второй аргумент: "))
+        f_arg3 = float(input("Введите третий аргумент: "))
+    except ValueError:
+        print(f"Ошибка приведения аргументов к float!")
+    else:
+        print(f"Сумма наибольших двух аргументов: {my_func_sum(f_arg1, f_arg2, f_arg3)}")
 
 # 4. Программа принимает действительное положительное число x и целое отрицательное число y.
 # Необходимо выполнить возведение числа x в степень y.
 # Задание необходимо реализовать в виде функции my_func(x, y).
 # При решении задания необходимо обойтись без встроенной функции возведения числа в степень.
 
-answer = input("\nЗадание 4 (д/н)? ")
 
+def my_func_exp(num: float, exp: int) -> float:
+    """
+    Возведение числа num в степень exp
+
+    :param num: возводимое в степень число
+    :param exp: показатель степени
+    :return: Число num в степени exp
+    """
+    res = num
+    for _ in range(abs(exp)-1):
+        res *= num
+    if exp == 0:
+        return 1.
+    elif exp > 0:
+        return res
+    else:
+        return 1 / res
+
+
+answer = input("\nЗадание 4 (д/н)? ")
 if answer == 'д':
-    pass
+    try:
+        f_num = abs(float(input("\nВведите действительное положительное число: ")))
+    except ValueError:
+        print(f"Ошибка приведения аргумента к float!")
+    else:
+        try:
+            i_exp = int(input("Введите показатель степени - целое отрицательное число: "))
+        except ValueError:
+            print(f"Ошибка приведения аргумента к int!")
+        else:
+            # if i_exp > 0:
+            #     i_exp *= -1
+            print(f"Число {f_num} в степени {i_exp}: {my_func_exp(f_num, i_exp)}")
 
 # 5. Программа запрашивает у пользователя строку чисел, разделенных пробелом.
 # При нажатии Enter должна выводиться сумма чисел.
@@ -114,9 +164,24 @@ if answer == 'д':
 # то вначале нужно добавить сумму этих чисел к полученной ранее сумме и после этого завершить программу.
 
 answer = input("\nЗадание 5 (д/н)? ")
-
 if answer == 'д':
-    pass
+    f_res = 0
+    b_exit = False
+    while True:
+        income_list = list(input("Введите сроку чисел разделённых пробелами (для выхода введите 'стоп'): ").split())
+        for el in income_list:
+            if el == 'стоп':
+                b_exit = True
+                break
+            try:
+                el = float(el)
+            except ValueError:
+                print(f"Элемент {el} невозможно привести к float он будет проигнорирован!")
+            else:
+                f_res += el
+        print(f"Сумма: {f_res}")
+        if b_exit:
+            break
 
 # 6. Реализовать функцию int_func(), принимающую слово из маленьких латинских букв и возвращающую его же,
 # но с прописной первой буквой. Например, print(int_func(‘text’)) -> Text.
@@ -125,7 +190,21 @@ if answer == 'д':
 # Сделать вывод исходной строки, но каждое слово должно начинаться с заглавной буквы.
 # Необходимо использовать написанную ранее функцию int_func().
 
-answer = input("\nЗадание 6 (д/н)? ")
 
+def int_func(in_str: str) -> str:
+    """
+    Принимает слово из маленьких букв и возвращает его же, но с прописной первой буквой
+
+    :param in_str: слово для изменения первой буквы на заглавную
+    :return: слово с изменённой первой буквой
+    """
+    return in_str[0].capitalize() + in_str[1:]
+
+
+answer = input("\nЗадание 6 (д/н)? ")
 if answer == 'д':
-    pass
+    str_res = ''
+    inc_list = input("Введите строку из слов, разделенных пробелом: ").split()
+    for wd in inc_list:
+        str_res += (int_func(wd) + ' ')
+    print(str_res)
