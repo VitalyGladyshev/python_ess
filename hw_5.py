@@ -20,10 +20,10 @@ if answer == 'д':
 
         with open("new_income.txt", 'r') as read_file:
             while True:
-                red_line = read_file.readline()
-                if red_line == "":
+                read_line = read_file.readline()
+                if read_line == "":
                     break
-                print(red_line, end='')
+                print(read_line, end='')
     except IOError:
         print("Ошибка открытия файла!")
 
