@@ -11,14 +11,14 @@
 answer = input("Задание 1 (д/н)? ")
 if answer == 'д':
     try:
-        with open("new_income.txt", 'w') as new_file:
+        with open("text_for_t2.txt", 'w') as new_file:
             while True:
                 new_line = input("Введите строку для записи в файл (выход - пустая строка):\n")
                 if new_line == "":
                     break
                 new_file.write(new_line+"\n")
 
-        with open("new_income.txt", 'r') as read_file:
+        with open("text_for_t2.txt", 'r') as read_file:
             while True:
                 read_line = read_file.readline()
                 if read_line == "":
@@ -26,15 +26,24 @@ if answer == 'д':
                 print(read_line, end='')
     except IOError:
         print("Ошибка открытия файла!")
+    print("\n")
 
 """
 2. Создать текстовый файл (не программно), сохранить в нем несколько строк,
 выполнить подсчет количества строк, количества слов в каждой строке.
 """
 
-answer = input("\nЗадание 2 (д/н)? ")
+answer = input("Задание 2 (д/н)? ")
 if answer == 'д':
-    pass
+    try:
+        with open("text_for_t2.txt", 'r') as read_file:
+            all_read_lines = read_file.readlines()
+            for num, line in enumerate(all_read_lines):
+                print(f"\tВ строке {num+1}: {len(line.split())} слов(а)")
+            print(f"\tВсего: {len(all_read_lines)} строк(и)\n")
+    except IOError:
+        print("Ошибка открытия файла!\n")
+    # print("\n")
 
 """
 3. Создать текстовый файл (не программно), построчно записать фамилии сотрудников и 
