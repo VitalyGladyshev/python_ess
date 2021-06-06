@@ -176,4 +176,8 @@ if answer == 'д':
 
 answer = input("Задание 7 (д/н)? ")
 if answer == 'д':
-    pass
+    try:
+        with open("texts/text_for_t7.txt") as read_file:
+            pass
+    except IOError:
+        print("\tОшибка открытия файла!\n")
