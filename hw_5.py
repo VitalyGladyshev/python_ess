@@ -3,6 +3,8 @@
 ДЗ 5 Гладышев ВВ
 """
 
+import random
+
 """
 1. Создать программно файл в текстовом формате, записать в него построчно данные, вводимые пользователем.
 Об окончании ввода данных свидетельствует пустая строка.
@@ -107,7 +109,19 @@ if answer == 'д':
 
 answer = input("Задание 5 (д/н)? ")
 if answer == 'д':
-    pass
+    try:
+        with open("text_for_t5.txt", "w") as write_file:
+            for _ in range(10):
+                write_file.write(str(random.randint(1, 101)) + " ")
+        with open("text_for_t5.txt") as read_file:
+            read_line = read_file.readline()
+            print(read_line)
+            res_sum = 0
+            for str_number in read_line.split():
+                res_sum += int(str_number)
+            print(f"Сумма: {res_sum}\n")
+    except IOError:
+        print("Ошибка открытия файла!\n")
 
 """
 6. Необходимо создать (не программно) текстовый файл, где каждая строка описывает учебный предмет и 
