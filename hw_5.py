@@ -57,7 +57,21 @@ if answer == 'д':
 
 answer = input("Задание 3 (д/н)? ")
 if answer == 'д':
-    pass
+    try:
+        with open("text_for_t3.txt") as read_file:
+            f_average_salary = 0
+            all_read_lines = read_file.readlines()
+            for line in all_read_lines:
+                s_name, salary = line.split()
+                salary = float(salary)
+                f_average_salary += salary
+                if salary < 20000:
+                    print(f"\t{s_name} {salary}")
+            if len(all_read_lines) > 0:
+                f_average_salary /= len(all_read_lines)
+                print(f"\tСредняя зарплата: {f_average_salary:.2f}\n")
+    except IOError:
+        print("Ошибка открытия файла!\n")
 
 """
 4. Создать (не программно) текстовый файл со следующим содержимым:
@@ -73,7 +87,18 @@ Four — 4
 
 answer = input("Задание 4 (д/н)? ")
 if answer == 'д':
-    pass
+    try:
+        with open("text_for_t4.txt") as read_file:
+            with open("text_res_t4.txt", "w") as write_file:
+                number_words_list = ["Один", "Два", "Три", "Четыре"]
+                all_read_lines = read_file.readlines()
+                for num, line in enumerate(all_read_lines):
+                    if len(line):
+                        words = line.split()
+                        print(f"{number_words_list[num]} {words[1]} {words[2]}", file=write_file)
+                print("\tГотово\n")
+    except IOError:
+        print("Ошибка открытия файла!\n")
 
 """
 5. Создать (программно) текстовый файл, записать в него программно набор чисел, разделенных пробелами. 
