@@ -4,6 +4,7 @@
 """
 
 import random
+import json
 
 text_dir = "./texts/"
 
@@ -21,7 +22,7 @@ if answer == 'д':
                 new_line = input()
                 if new_line == "":
                     break
-                new_file.write(new_line+"\n")
+                new_file.write(new_line + "\n")
 
         with open(text_dir + "text_for_t1.txt") as read_file:
             while True:
@@ -44,7 +45,7 @@ if answer == 'д':
         with open("texts/text_for_t2.txt") as read_file:
             all_read_lines = read_file.readlines()
             for num, line in enumerate(all_read_lines):
-                print(f"\tВ строке {num+1}: {len(line.split())} слов(а)")
+                print(f"\tВ строке {num + 1}: {len(line.split())} слов(а)")
             print(f"\tВсего: {len(all_read_lines)} строк(и)\n")
     except IOError:
         print("\tОшибка открытия файла!\n")
@@ -177,7 +178,24 @@ if answer == 'д':
 answer = input("Задание 7 (д/н)? ")
 if answer == 'д':
     try:
-        with open("texts/text_for_t7.txt") as read_file:
-            pass
+        firm_dict = {}
+        av_dict = {"average_profit": 0}
+        res_list = [firm_dict, av_dict]
+        with open("texts/text_for_t7.txt", encoding='utf-8') as read_file:
+            i_firm_count = 0
+            all_read_lines = read_file.readlines()
+            for line in all_read_lines:
+                if len(line):
+                    firm_name, firm_type, firm_revenue, firm_costs = line.split()
+                    firm_profit = float(firm_revenue) - float(firm_costs)
+                    firm_dict[firm_name] = firm_profit
+                    if firm_profit > 0:
+                        av_dict["average_profit"] += firm_profit
+                        i_firm_count += 1
+            if i_firm_count:
+                av_dict["average_profit"] /= i_firm_count
+            print(f"\t{json.dumps(res_list, ensure_ascii=False)}\n")
+        with open("texts/text_res_t7.json", 'w') as write_file:
+            json.dump(res_list, write_file, ensure_ascii=False)
     except IOError:
         print("\tОшибка открытия файла!\n")
