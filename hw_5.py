@@ -5,6 +5,8 @@
 
 import random
 
+text_dir = "./texts/"
+
 """
 1. Создать программно файл в текстовом формате, записать в него построчно данные, вводимые пользователем.
 Об окончании ввода данных свидетельствует пустая строка.
@@ -13,22 +15,23 @@ import random
 answer = input("Задание 1 (д/н)? ")
 if answer == 'д':
     try:
-        with open("text_for_t2.txt", 'w') as new_file:
+        with open(text_dir + "text_for_t1.txt", 'w') as new_file:
+            print("\tВводите строки для записи в файл (выход - пустая строка):\n")
             while True:
-                new_line = input("Введите строку для записи в файл (выход - пустая строка):\n")
+                new_line = input()
                 if new_line == "":
                     break
                 new_file.write(new_line+"\n")
 
-        with open("text_for_t2.txt", 'r') as read_file:
+        with open(text_dir + "text_for_t1.txt") as read_file:
             while True:
                 read_line = read_file.readline()
                 if read_line == "":
                     break
                 print(read_line, end='')
     except IOError:
-        print("Ошибка открытия файла!")
-    print("\n")
+        print("\tОшибка открытия файла!")
+    print()
 
 """
 2. Создать текстовый файл (не программно), сохранить в нем несколько строк,
@@ -38,13 +41,13 @@ if answer == 'д':
 answer = input("Задание 2 (д/н)? ")
 if answer == 'д':
     try:
-        with open("text_for_t2.txt", 'r') as read_file:
+        with open("texts/text_for_t2.txt") as read_file:
             all_read_lines = read_file.readlines()
             for num, line in enumerate(all_read_lines):
                 print(f"\tВ строке {num+1}: {len(line.split())} слов(а)")
             print(f"\tВсего: {len(all_read_lines)} строк(и)\n")
     except IOError:
-        print("Ошибка открытия файла!\n")
+        print("\tОшибка открытия файла!\n")
 
 """
 3. Создать текстовый файл (не программно), построчно записать фамилии сотрудников и 
@@ -60,7 +63,7 @@ if answer == 'д':
 answer = input("Задание 3 (д/н)? ")
 if answer == 'д':
     try:
-        with open("text_for_t3.txt") as read_file:
+        with open("texts/text_for_t3.txt") as read_file:
             f_average_salary = 0
             all_read_lines = read_file.readlines()
             for line in all_read_lines:
@@ -73,7 +76,7 @@ if answer == 'д':
                 f_average_salary /= len(all_read_lines)
                 print(f"\tСредняя зарплата: {f_average_salary:.2f}\n")
     except IOError:
-        print("Ошибка открытия файла!\n")
+        print("\tОшибка открытия файла!\n")
 
 """
 4. Создать (не программно) текстовый файл со следующим содержимым:
@@ -90,8 +93,8 @@ Four — 4
 answer = input("Задание 4 (д/н)? ")
 if answer == 'д':
     try:
-        with open("text_for_t4.txt") as read_file:
-            with open("text_res_t4.txt", "w") as write_file:
+        with open("texts/text_for_t4.txt") as read_file:
+            with open("texts/text_res_t4.txt", "w") as write_file:
                 number_words_list = ["Один", "Два", "Три", "Четыре"]
                 all_read_lines = read_file.readlines()
                 for num, line in enumerate(all_read_lines):
@@ -100,7 +103,7 @@ if answer == 'д':
                         print(f"{number_words_list[num]} {words[1]} {words[2]}", file=write_file)
                 print("\tГотово\n")
     except IOError:
-        print("Ошибка открытия файла!\n")
+        print("\tОшибка открытия файла!\n")
 
 """
 5. Создать (программно) текстовый файл, записать в него программно набор чисел, разделенных пробелами. 
@@ -110,18 +113,18 @@ if answer == 'д':
 answer = input("Задание 5 (д/н)? ")
 if answer == 'д':
     try:
-        with open("text_for_t5.txt", "w") as write_file:
+        with open("texts/text_for_t5.txt", "w") as write_file:
             for _ in range(10):
                 write_file.write(str(random.randint(1, 101)) + " ")
-        with open("text_for_t5.txt") as read_file:
+        with open("texts/text_for_t5.txt") as read_file:
             read_line = read_file.readline()
-            print(read_line)
+            print("\t" + read_line)
             res_sum = 0
             for str_number in read_line.split():
                 res_sum += int(str_number)
-            print(f"Сумма: {res_sum}\n")
+            print(f"\tСумма: {res_sum}\n")
     except IOError:
-        print("Ошибка открытия файла!\n")
+        print("\tОшибка открытия файла!\n")
 
 """
 6. Необходимо создать (не программно) текстовый файл, где каждая строка описывает учебный предмет и 
@@ -137,7 +140,7 @@ if answer == 'д':
 answer = input("Задание 6 (д/н)? ")
 if answer == 'д':
     try:
-        with open("text_for_t6.txt") as read_file:
+        with open("texts/text_for_t6.txt") as read_file:
             res_dict = {}
             all_read_lines = read_file.readlines()
             for line in all_read_lines:
@@ -148,9 +151,9 @@ if answer == 'д':
                         if len(hours) > 1:
                             hours_sum += int(hours.split('(')[0])
                     res_dict[subject[0]] = hours_sum
-            print(res_dict)
+            print(f"\t{res_dict}\n")
     except IOError:
-        print("Ошибка открытия файла!\n")
+        print("\tОшибка открытия файла!\n")
 
 """
 7. Создать вручную и заполнить несколькими строками текстовый файл, 
