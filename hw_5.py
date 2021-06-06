@@ -136,7 +136,21 @@ if answer == 'д':
 
 answer = input("Задание 6 (д/н)? ")
 if answer == 'д':
-    pass
+    try:
+        with open("text_for_t6.txt") as read_file:
+            res_dict = {}
+            all_read_lines = read_file.readlines()
+            for line in all_read_lines:
+                if len(line):
+                    subject = line.split()
+                    hours_sum = 0
+                    for hours in subject[1:]:
+                        if len(hours) > 1:
+                            hours_sum += int(hours.split('(')[0])
+                    res_dict[subject[0]] = hours_sum
+            print(res_dict)
+    except IOError:
+        print("Ошибка открытия файла!\n")
 
 """
 7. Создать вручную и заполнить несколькими строками текстовый файл, 
