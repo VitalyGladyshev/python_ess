@@ -23,8 +23,8 @@ class TrafficLight:
     """
 
     _color: int
-    _color_list = ["красный", "желтый", "зеленый"]
-    _color_time_list = [7, 2, 7]
+    _color_list: list = ["красный", "желтый", "зеленый"]
+    _color_time_list: list = [7, 2, 7]
 
     def __init__(self) -> None:
         self._color = 0
@@ -52,9 +52,42 @@ if answer == 'д':
 Например: 20м*5000м*25кг*5см = 12500 т
 """
 
+
+class Road:
+    """
+    класс для расчёта массы асфальта
+    """
+
+    _length: float
+    _width: float
+    _thickness: float = 5   # толщина по умолчанию 5 см
+    _mass_per_centimeter = 25   # масса (кг) асфальта для покрытия одного кв метра дороги асфальтом, толщиной в 1 см
+
+    def __init__(self, length: float, width: float) -> None:
+        self._length = length
+        self._width = width
+
+    def print_asphalt_weight(self):
+        """
+        расчёт и печать массы асфальта
+
+        формула длина*ширина*масса асфальта для покрытия одного кв метра дороги асфальтом,
+        толщиной в 1 см*число см толщины полотна
+        """
+        print(f"\tМасса асфальта: {self._length*self._width*self._thickness*self._mass_per_centimeter/1000:.2f} т.")
+
+
 answer = input("Задание 2 (д/н)? ")
 if answer == 'д':
-    pass
+    try:
+        r_length = abs(float(input("\n\tВведите длину дороги (в метрах): ")))
+        r_width = abs(float(input("\tВведите ширину дороги (в метрах): ")))
+    except ValueError:
+        print(f"Ошибка приведения аргумента к float!")
+    else:
+        road = Road(r_length, r_width)
+        road.print_asphalt_weight()
+        print()
 
 """
 3. Реализовать базовый класс Worker (работник), в котором определить атрибуты: name, surname, position (должность), 
