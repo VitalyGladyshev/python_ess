@@ -128,9 +128,6 @@ class Position(Worker):
     класс Должность
     """
 
-    # def __init__(self) -> None:
-    #     super().__init__()
-
     def get_full_name(self) -> str:
         """
         Формирует строку с полным именем: Фамилия Имя
