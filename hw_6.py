@@ -30,11 +30,10 @@ class TrafficLight:
         self._color = 0
 
     def running(self):
-        for _ in range(2):
-            for _ in range(3):
-                print(f"\r\t{self._color_list[self._color]}", end='')
-                time.sleep(self._color_time_list[self._color])
-                self._color = 0 if self._color == 2 else self._color + 1
+        for _ in range(3):
+            print(f"\r\t{self._color_list[self._color]}", end='')
+            time.sleep(self._color_time_list[self._color])
+            self._color = 0 if self._color == 2 else self._color + 1
         print("\n")
 
 
