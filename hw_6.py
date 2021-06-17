@@ -98,9 +98,61 @@ income (доход). Последний атрибут должен быть з�
 передать данные, проверить значения атрибутов, вызвать методы экземпляров).
 """
 
+
+class Worker:
+    """
+    класс Работник
+    """
+
+    _name: str
+    _surname: str
+    position: str
+    _income: dict
+
+    def __init__(self, name: str, surname: str, position: str, wage: float, bonus: float):
+        super()
+        self._name = name
+        self._surname = surname
+        self.position = position
+        try:
+            wage = float(wage)
+            bonus = float(bonus)
+        except ValueError:
+            print(f"Ошибка приведения аргумента к float!")
+        else:
+            self._income = {"wage": wage, "bonus": bonus}
+
+
+class Position(Worker):
+    """
+    класс Должность
+    """
+
+    # def __init__(self) -> None:
+    #     super().__init__()
+
+    def get_full_name(self) -> str:
+        """
+        Формирует строку с полным именем: Фамилия Имя
+        """
+        return self._surname + " " + self._name
+
+    def get_total_income(self) -> float:
+        """
+        Формирует сумму полного дохода: wage + bonus
+        """
+        return self._income["wage"] + self._income["bonus"]
+
+
 answer = input("Задание 3 (д/н)? ")
 if answer == 'д':
-    pass
+    pos_programmer = Position("Иван", "Иванов", "Программист", 70000, 30000)
+    pos_economist = Position("Пётр", "Петров", "Экономист", 60000, 30000)
+    pos_lawyer = Position("Семён", "Сидоров", "Юрист", 60000, 50000)
+
+    print(f"\t{pos_programmer.position} {pos_programmer.get_full_name()} зарплата: {pos_programmer.get_total_income()}")
+    print(f"\t{pos_economist.position} {pos_economist.get_full_name()} зарплата: {pos_economist.get_total_income()}")
+    print(f"\t{pos_lawyer.position} {pos_lawyer.get_full_name()} зарплата: {pos_lawyer.get_total_income()}\n")
 
 """
 4.Реализуйте базовый класс Car. У данного класса должны быть следующие атрибуты: speed, color, name, is_police (булево).
