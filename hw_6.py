@@ -3,6 +3,8 @@
 ДЗ 5 Гладышев ВВ
 """
 
+import time
+
 """
 1. Создать класс TrafficLight (светофор) и определить у него один атрибут color (цвет) и метод running (запуск). 
 Атрибут реализовать как приватный. В рамках метода реализовать переключение светофора в режимы: красный, желтый, 
@@ -14,9 +16,32 @@
 сообщение и завершать скрипт.
 """
 
+
+class TrafficLight:
+    """
+    класс Светофор
+    """
+
+    _color: int
+    _color_list = ["красный", "желтый", "зеленый"]
+    _color_time_list = [7, 2, 7]
+
+    def __init__(self) -> None:
+        self._color = 0
+
+    def running(self):
+        for _ in range(2):
+            for _ in range(3):
+                print(f"\r\t{self._color_list[self._color]}", end='')
+                time.sleep(self._color_time_list[self._color])
+                self._color = 0 if self._color == 2 else self._color + 1
+        print("\n")
+
+
 answer = input("Задание 1 (д/н)? ")
 if answer == 'д':
-    pass
+    trafficLight = TrafficLight()
+    trafficLight.running()
 
 """
 2. Реализовать класс Road (дорога), в котором определить атрибуты: length (длина), width (ширина). 
