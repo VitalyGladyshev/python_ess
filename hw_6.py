@@ -60,8 +60,8 @@ class Road:
 
     _length: float
     _width: float
-    _thickness: float = 5   # толщина по умолчанию 5 см
-    _mass_per_centimeter = 25   # масса (кг) асфальта для покрытия одного кв метра дороги асфальтом, толщиной в 1 см
+    _thickness: float = 5  # толщина по умолчанию 5 см
+    _mass_per_centimeter = 25  # масса (кг) асфальта для покрытия одного кв метра дороги асфальтом, толщиной в 1 см
 
     def __init__(self, length: float, width: float) -> None:
         self._length = length
@@ -74,7 +74,8 @@ class Road:
         формула длина*ширина*масса асфальта для покрытия одного кв метра дороги асфальтом,
         толщиной в 1 см*число см толщины полотна
         """
-        print(f"\tМасса асфальта: {self._length*self._width*self._thickness*self._mass_per_centimeter/1000:.2f} т.")
+        print(
+            f"\tМасса асфальта: {self._length * self._width * self._thickness * self._mass_per_centimeter / 1000:.2f} т.")
 
 
 answer = input("Задание 2 (д/н)? ")
@@ -159,9 +160,97 @@ if answer == 'д':
 При значении скорости свыше 60 (TownCar) и 40 (WorkCar) должно выводиться сообщение о превышении скорости.
 """
 
-answer = input("Задание 4 (д/н)? ")
-if answer == 'д':
-    pass
+
+class Car:
+    """
+    Класс Автомобиль
+    """
+    name: str
+    _speed: float
+    color: str
+    is_police: bool
+
+    def __init__(self, name: str, color: str) -> None:
+        self.name = name
+        self._speed = 0
+        self.color = color
+        self.is_police = False
+        print(f"\tЗарегистрирована машина: {self.color} {self.name}")
+
+    def show_speed(self):
+        print(f"\t\tСкорость машины {self.color} {self.name}: {self._speed:.1f}")
+
+    def go(self, speed: float) -> None:
+        self._speed = speed
+        print(f"\tМашина {self.color} {self.name} поехала")
+        self.show_speed()
+
+    def stop(self) -> None:
+        self._speed = 0
+        print(f"\tМашина {self.color} {self.name} остановилась")
+
+    def turn(self, direction: str) -> None:
+        print(f"\tМашина {self.color} {self.name} поехала {direction}")
+
+    def set_speed(self, speed: float):
+        self._speed = speed
+        self.show_speed()
+
+
+class TownCar(Car):
+    """
+    Обычный городской автомобиль
+    """
+
+    def show_speed(self):
+        print(f"\t\tСкорость машины {self.color} {self.name}: {self._speed:.1f}")
+        if self._speed > 60:
+            print("\t\tВнимание! Превышен порог скорости 60 км/ч")
+
+
+class SportCar(Car):
+    """
+    Спорткар
+    """
+
+    def use_nitro(self):
+        self._speed += 50
+        print(f"\tМашина {self.color} {self.name} использует закись азота. Нас не догонят!!!")
+        self.show_speed()
+
+
+class WorkCar(Car):
+    """
+    Сервисная машина
+    """
+
+    def show_speed(self):
+        print(f"\t\tСкорость машины {self.color} {self.name}: {self._speed:.1f}")
+        if self._speed > 60:
+            print("\t\tВнимание! Превышен порог скорости 40 км/ч")
+
+
+class PoliceCar(Car):
+    """
+    Полицейская машина
+    """
+    flashing_light: bool
+
+    def __init__(self, name: str, color: str) -> None:
+        super().__init__(name, color)
+        self.is_police = True
+        self.flashing_light = False
+
+    def on_flashing_light(self) -> None:
+        self.flashing_light = True
+        print(f"\tМашина {self.color} {self.name} включены проблесковые огни!")
+
+    def off_flashing_light(self) -> None:
+        self.flashing_light = False
+        print(f"\tМашина {self.color} {self.name} отключены проблесковые огни")
+
+
+print("Задание 4 Описание классов: Car, TownCar, SportCar, WorkCar, PoliceCar")
 
 """
 5. Создайте экземпляры классов, передайте значения атрибутов. Выполните доступ к атрибутам, выведите результат. 
@@ -170,7 +259,26 @@ if answer == 'д':
 
 answer = input("Задание 5 (д/н)? ")
 if answer == 'д':
-    pass
+    t_car = TownCar("Logan", "синий")
+    s_car = SportCar("Ferrari", "красный")
+    w_car = WorkCar("трактор Беларусь", "жёлтый")
+    p_car = PoliceCar("патруль 315", "белый")
+
+    print(f"\n\tГородская машина: {t_car.color} {t_car.name}\n")
+    t_car.go(50)
+    w_car.go(35)
+    t_car.set_speed(85)
+    p_car.on_flashing_light()
+    t_car.set_speed(60)
+    t_car.turn("направо")
+    p_car.off_flashing_light()
+    s_car.go(100)
+    p_car.on_flashing_light()
+    p_car.go(110)
+    s_car.set_speed(200)
+    p_car.set_speed(200)
+    s_car.use_nitro()
+    print()
 
 """
 6. Реализовать класс Stationery (канцелярская принадлежность). Определить в нем атрибут title (название) и 
