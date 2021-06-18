@@ -295,6 +295,9 @@ class Stationery:
     """
     title: str
 
+    def __init__(self, title) -> None:
+        self.title = title
+
     def draw(self):
         print("\tЗапуск отрисовки.")
 
@@ -303,24 +306,36 @@ class Pen(Stationery):
     """
     класс - ручка
     """
+
+    def __init__(self) -> None:
+        super().__init__("Ручка")
+
     def draw(self):
-        print("\tЗапуск отрисовки ручкой.")
+        print(f"\t{self.title} - запуск отрисовки.")
 
 
 class Pencil(Stationery):
     """
     класс - карандаш
     """
+
+    def __init__(self) -> None:
+        super().__init__("Карандаш")
+
     def draw(self):
-        print("\tЗапуск отрисовки карандашом.")
+        print(f"\t{self.title} - запуск отрисовки.")
 
 
 class Handle(Stationery):
     """
     класс - маркер
     """
+
+    def __init__(self) -> None:
+        super().__init__("Маркер")
+
     def draw(self):
-        print("\tЗапуск отрисовки маркером.")
+        print(f"\t{self.title} - запуск отрисовки.")
 
 
 answer = input("Задание 6 (д/н)? ")
