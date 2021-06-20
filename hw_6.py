@@ -111,7 +111,6 @@ class Worker:
     _income: dict
 
     def __init__(self, name: str, surname: str, position: str, wage: float, bonus: float):
-        super()
         self._name = name
         self._surname = surname
         self.position = position
