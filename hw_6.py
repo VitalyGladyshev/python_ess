@@ -21,7 +21,6 @@ class TrafficLight:
     """
     класс Светофор
     """
-
     _color: int
     _color_list: list = ["красный", "желтый", "зеленый"]
     _color_time_list: list = [7, 2, 7]
@@ -74,8 +73,8 @@ class Road:
         формула длина*ширина*масса асфальта для покрытия одного кв метра дороги асфальтом,
         толщиной в 1 см*число см толщины полотна
         """
-        print(
-            f"\tМасса асфальта: {self._length * self._width * self._thickness * self._mass_per_centimeter / 1000:.2f} т.")
+        print("\tМасса асфальта: " 
+              f"{self._length * self._width * self._thickness * self._mass_per_centimeter / 1000:.2f} т.")
 
 
 answer = input("Задание 2 (д/н)? ")
