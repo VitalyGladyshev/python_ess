@@ -3,6 +3,7 @@
 ДЗ 7 Гладышев ВВ
 """
 
+from typing import List
 from abc import ABC, abstractmethod
 
 """
@@ -25,19 +26,78 @@ class Matrix:
     __str__
     __add__
     """
-    def __init__(self):
-        pass
+    matrix: List[List[float]]
 
-    def __str__(self):
-        pass
+    def __init__(self, matrix: List[List[float]]) -> None:
+        """
+        Конструктор
+        :param matrix:
+        """
+        self.matrix = matrix
+        try:
+            for raw_ind in range(len(self.matrix)):
+                for el_ind in range(len(self.matrix[0])):
+                    self.matrix[raw_ind][el_ind] = float(self.matrix[raw_ind][el_ind])
+        except (ValueError, IndexError) as error:
+            print(f"\nОшибка при создании объекта: {error}!\n")
+            self.matrix = []
+            return
+
+    def __str__(self) -> str:
+        """
+        Распечатываем матрицу
+        :return: строка с матрицей
+        """
+        res_str: str = ""
+        try:
+            for raw in self.matrix:
+                res_str += "\t"
+                for el in raw:
+                    res_str += f"{el} "
+                res_str += "\n"
+        except ValueError as error:
+            return f"\nОшибка: {error}!\n"
+        return res_str
 
     def __add__(self, other):
-        pass
+        """
+        Сложение матриц
+        :param other: второе слагаемое
+        :return: self or None
+        """
+        if len(self.matrix) != len(other.matrix):
+            print("В матрицах разное количество строк!")
+            return
+        if len(self.matrix[0]) != len(other.matrix[0]):
+            print("В матрицах разное количество столбцов!")
+            return
+        try:
+            for raw_ind in range(len(self.matrix)):
+                for el_ind in range(len(self.matrix[0])):
+                    self.matrix[raw_ind][el_ind] += float(other.matrix[raw_ind][el_ind])
+        except IndexError as error:
+            print(f"\nОшибка при сложении: {error}!\n")
+            self.matrix = []
+            return
+        else:
+            return self
 
 
 answer = input("Задание 1 (д/н)? ")
 if answer == 'д':
-    pass
+    matrix_a = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
+    matrix_b = [[1, 2, 3], [1, 2, 3], [1, 2, 3]]
+
+    matrix_obj_a = Matrix(matrix_a)
+    matrix_obj_b = Matrix(matrix_b)
+
+    print("\tПервая матрица:")
+    print(f"\tСписок списков\n\t{matrix_a}\n")
+    print(f"\tОбъект класса\n{matrix_obj_a}")
+    print("\tВторая матрица:")
+    print(f"\tСписок списков\n\t{matrix_b}\n")
+    print(f"\tОбъект класса\n{matrix_obj_b}")
+    print(f"\tСумма матриц:\n{matrix_obj_a + matrix_obj_b}")
 
 """
 2. Реализовать проект расчета суммарного расхода ткани на производство одежды. Основная сущность (класс) 
@@ -57,6 +117,7 @@ class Clothes(ABC):
     """
     абстрактный класс - Одежда
     """
+
     @abstractmethod
     def fabric_consumption(self):
         pass
@@ -66,6 +127,7 @@ class Coat(Clothes):
     """
     класс - Пальто
     """
+
     def fabric_consumption(self):
         pass
 
@@ -74,6 +136,7 @@ class Suit(Clothes):
     """
     класс - Костюм
     """
+
     def fabric_consumption(self):
         pass
 
