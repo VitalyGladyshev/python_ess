@@ -128,8 +128,30 @@ class Coat(Clothes):
     класс - Пальто
     """
 
+    size: float   # размер пальто
+
+    def __init__(self, size: float):
+        """
+        Конструктор класса Coat
+
+        :param size: размер пальто
+        """
+        try:
+            self.size = float(size)
+        except ValueError:
+            print(f"\nОшибка при приведении параметра к float. Установлен размер по умолчанию: 50\n")
+            self.size = 50.
+
+    @property
     def fabric_consumption(self):
-        pass
+        """
+        Реализация абстрактного метода
+        Расчёт расхода ткани для пальто
+        Формула расхода ткани для пальто: size/6.5 + 0.5
+
+        :return: количество ткани
+        """
+        return self.size/6.5 + 0.5
 
 
 class Suit(Clothes):
@@ -137,13 +159,39 @@ class Suit(Clothes):
     класс - Костюм
     """
 
+    height: float  # рост
+
+    def __init__(self, height: float):
+        """
+        Конструктор класса Suit
+
+        :param height: рост
+        """
+        try:
+            self.height = float(height)
+        except ValueError:
+            print(f"\nОшибка при приведении параметра к float. Установлен рост по умолчанию: 170\n")
+            self.height = 170.
+
+    @property
     def fabric_consumption(self):
-        pass
+        """
+        Реализация абстрактного метода
+        Расчёт расхода ткани для костюма
+        Формула расхода ткани для костюма: 2 * height + 0.3
+
+        :return: количество ткани
+        """
+        return 2 * self.height + 0.3
 
 
 answer = input("Задание 2 (д/н)? ")
 if answer == 'д':
-    pass
+    coat = Coat(48)
+    suite = Suit(170)
+
+    print(f"\tРазмер пальто: {coat.size} Расход ткани: {coat.fabric_consumption:.2f}")
+    print(f"\tРазмер костюма: {suite.height} Расход ткани: {suite.fabric_consumption:.2f}\n")
 
 r"""
 3. Реализовать программу работы с органическими клетками, состоящими из ячеек. Необходимо создать класс Клетка. 
