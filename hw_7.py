@@ -251,24 +251,44 @@ class Cell:
         return Cell(self._cell_number + other.get_cell_number())
 
     def __sub__(self, other):
-        """"""
-        if self._cell_number < 0:
-            self._cell_number = 0
-        return Cell()
+        """
+        Разность числа ячеек двух объектов Cell
+
+        :param other: вычитаемое - другой объект Cell
+        :return: объект класса Cell с числом ячеек равным разности
+        """
+        difference = self._cell_number - other.get_cell_number()
+        if difference >= 0:
+            return Cell(difference)
+        else:
+            print("Разность меньше нуля!")
+            return Cell(0)
 
     def __mul__(self, other):
-        """"""
+        """
+        Произведение числа ячеек двух объектов Cell
 
-        if self._cell_number < 0:
-            self._cell_number = 0
-        return Cell()
+        :param other: множитель - другой объект Cell
+        :return: объект класса Cell с числом ячеек равным произведению
+        """
+        product = self._cell_number * other.get_cell_number()
+        if product >= 0:
+            return Cell(product)
+        else:
+            return Cell(0)
 
     def __truediv__(self, other):
-        """"""
+        """
+        Частное целочисленного деления ячеек двух объектов Cell
 
-        if self._cell_number < 0:
-            self._cell_number = 0
-        return Cell()
+        :param other: делитель - другой объект Cell
+        :return: объект класса Cell с числом ячеек равным частному целочисленного деления
+        """
+        if int(other.get_cell_number()) != 0:
+            return Cell(self._cell_number // other.get_cell_number())
+        else:
+            print("Попытка деления на ноль!")
+            return self
 
     def __str__(self):
         """
@@ -286,7 +306,7 @@ class Cell:
         """
         whole: int = self._cell_number // line_width
         remainder: int = self._cell_number % line_width
-        res_str: str = ""
+        res_str: str = f"\tЯчеек: {self._cell_number}\n"
         if not (whole or remainder):
             return "\tНет ячеек :(\n"
         if whole:
@@ -310,3 +330,9 @@ if answer == 'д':
     print(f"{org_3.make_order(6)}")
     print("\tСумма первого и второго:")
     print(org_1+org_2)
+    print("\tРазность третьего и второго:")
+    print(org_3-org_2)
+    print("\tПроизведение первого и второго:")
+    print(org_1*org_2)
+    print("\tЦелочисленное частное третьего и первого:")
+    print(org_3/org_1)
