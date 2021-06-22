@@ -222,9 +222,36 @@ class Cell:
     """
     класс - Клетка
     """
-    pass
+
+    cell_number: int   # количество ячеек
+
+    def __init__(self, cell_number):
+        """
+        Конструктор класса Cell
+
+        :param cell_number: начальное число ячеек
+        """
+        self.cell_number = cell_number
+
+    def __add__(self, other):
+        """"""
+        pass
+
+    def __sub__(self, other):
+        """"""
+        pass
+
+    def __mul__(self, other):
+        """"""
+        pass
+
+    def __truediv__(self, other):
+        """"""
+        pass
 
 
 answer = input("Задание 3 (д/н)? ")
 if answer == 'д':
-    pass
+    org_1 = Cell(10)
+    org_2 = Cell(20)
+    org_3 = Cell(30)
