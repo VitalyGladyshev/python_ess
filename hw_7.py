@@ -223,7 +223,7 @@ class Cell:
     класс - Клетка
     """
 
-    cell_number: int   # количество ячеек
+    _cell_number: int   # количество ячеек
 
     def __init__(self, cell_number):
         """
@@ -231,27 +231,82 @@ class Cell:
 
         :param cell_number: начальное число ячеек
         """
-        self.cell_number = cell_number
+        self._cell_number = cell_number
+
+    def get_cell_number(self):
+        """
+        Возвращает защищённый параметр _cell_number
+
+        :return: _cell_number
+        """
+        return self._cell_number
 
     def __add__(self, other):
-        """"""
-        pass
+        """
+        Сложение числа ячеек двух объектов Cell
+
+        :param other: слагаемое - другой объект Cell
+        :return: объект класса Cell с числом ячеек равным сумме
+        """
+        return Cell(self._cell_number + other.get_cell_number())
 
     def __sub__(self, other):
         """"""
-        pass
+        if self._cell_number < 0:
+            self._cell_number = 0
+        return Cell()
 
     def __mul__(self, other):
         """"""
-        pass
+
+        if self._cell_number < 0:
+            self._cell_number = 0
+        return Cell()
 
     def __truediv__(self, other):
         """"""
-        pass
+
+        if self._cell_number < 0:
+            self._cell_number = 0
+        return Cell()
+
+    def __str__(self):
+        """
+        Вывод 'организма' из ячеек фиксированно по 5 в ряд
+        :return: сформированная строка
+        """
+        return self.make_order(5)
+
+    def make_order(self, line_width):
+        """
+        Форматированный вывод 'организма' из ячеек
+
+        :param line_width: количество ячеек в строке
+        :return: сформированная строка
+        """
+        whole: int = self._cell_number // line_width
+        remainder: int = self._cell_number % line_width
+        res_str: str = ""
+        if not (whole or remainder):
+            return "\tНет ячеек :(\n"
+        if whole:
+            res_str += (("\t"+"*"*line_width+"\n")*whole)
+        if remainder:
+            res_str += ("\t"+"*"*remainder+"\n")
+        return res_str
 
 
 answer = input("Задание 3 (д/н)? ")
 if answer == 'д':
-    org_1 = Cell(10)
-    org_2 = Cell(20)
-    org_3 = Cell(30)
+    org_1 = Cell(6)
+    org_2 = Cell(12)
+    org_3 = Cell(24)
+
+    print("\tОрганизм 1:")
+    print(f"{org_1}")
+    print("\tОрганизм 2:")
+    print(f"{org_2}")
+    print("\tОрганизм 3:")
+    print(f"{org_3.make_order(6)}")
+    print("\tСумма первого и второго:")
+    print(org_1+org_2)
