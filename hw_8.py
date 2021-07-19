@@ -3,6 +3,8 @@
 ДЗ 8 Гладышев ВВ
 """
 
+# import datetime as dt
+
 """
 1. Реализовать класс «Дата», функция-конструктор которого должна принимать дату в виде строки формата «день-месяц-год».
 В рамках класса реализовать два метода. Первый, с декоратором @classmethod, должен извлекать число, месяц, год и
@@ -13,12 +15,26 @@
 
 class Date:
     """
-    
+    Класс Дата
+    содержит методы:
+        parse_date() для выделения года, месяца и дня
+        check_date() для валидации числа, месяца и года
     """
 
     @classmethod
-    def parse_date(cls):
-        pass
+    def parse_date(cls, inc_date: str) -> tuple:
+        year: int = -1   # год
+        month: int = -1  # месяц
+        day: int = -1    # день
+
+        separators_list: list = [' ', '.', '/', '-']
+        split_list: list = []
+
+        for sp in separators_list:
+            if inc_date.count(sp) >= 2:
+                split_list = inc_date.split(sp)
+
+        return split_list  # year, month, day
 
     @staticmethod
     def check_date():
@@ -27,7 +43,8 @@ class Date:
 
 answer = input("Задание 1 (д/н)? ")
 if answer == 'д':
-    pass
+    my_date = Date()
+    print(my_date.parse_date("1234.15.16 бла бла"))
 
 """
 2. Создайте собственный класс-исключение, обрабатывающий ситуацию деления на нуль. Проверьте его работу на данных, 
