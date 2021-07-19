@@ -63,6 +63,11 @@ class Date:
 
     @staticmethod
     def check_date(check_str: str) -> bool:
+        """
+        проверка числа, месяца и года
+        :param check_str: str: строка с датой
+        :return: bool: флаг: True - корректна, False - некорректна
+        """
         date_corr: bool = True
         year, month, day = Date.parse_date(check_str)
         if not 0 <= year <= 3000:
