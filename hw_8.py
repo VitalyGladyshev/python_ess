@@ -142,23 +142,23 @@ class MyFloat(float):
     def __init__(self, inc_float: float) -> None:
         self.my_float = float(inc_float)
 
-    def __truediv__(self, other) -> float:
+    def __truediv__(self, other):
         if other == 0:
             raise ExceptionZeroDiv(self.my_float, other)
         else:
-            return self.my_float / other
+            return MyFloat(self.my_float / other)
 
-    def __floordiv__(self, other) -> float:
+    def __floordiv__(self, other):
         if other == 0:
             raise ExceptionZeroDiv(self.my_float, other)
         else:
-            return self.my_float // other
+            return MyFloat(self.my_float // other)
 
-    def __mod__(self, other) -> float:
+    def __mod__(self, other):
         if other == 0:
             raise ExceptionZeroDiv(self.my_float, other)
         else:
-            return self.my_float % other
+            return MyFloat(self.my_float % other)
 
     def __divmod__(self, other) -> tuple:
         if other == 0:
@@ -171,26 +171,26 @@ class MyFloat(float):
     # def __rmod__(self, other):
     # def __rdivmod__(self, other):
 
-    def __itruediv__(self, other) -> float:   # /=
+    def __itruediv__(self, other):   # /=
         if other == 0:
             raise ExceptionZeroDiv(self.my_float, other)
         else:
             self.my_float /= other
-            return self.my_float
+            return MyFloat(self.my_float)
 
-    def __ifloordiv__(self, other) -> float:   # //=
+    def __ifloordiv__(self, other):   # //=
         if other == 0:
             raise ExceptionZeroDiv(self.my_float, other)
         else:
             self.my_float //= other
-            return self.my_float
+            return MyFloat(self.my_float)
 
-    def __imod__(self, other) -> float:    # %=
+    def __imod__(self, other):    # %=
         if other == 0:
             raise ExceptionZeroDiv(self.my_float, other)
         else:
             self.my_float %= other
-            return self.my_float
+            return MyFloat(self.my_float)
 
 
 answer = input("Задание 2 (д/н)? ")
@@ -199,17 +199,19 @@ if answer == 'д':
     b = MyFloat(2)
     c = MyFloat(0)
 
-    # a /= 0
+    a /= b
     # print(f"\t{divmod(a, 0)}")
-    print(f"\t{a+b}")
+    # a += b
+    print(f"\t{a}")
     try:
-        print(f"\t{a / b}")
-        print(f"\t{a / 0}")
-        print(f"\t{a / c}")
-        print(f"\t{c / 0}")
-        print(f"\t{c / a}")
+        print(f"\t{a/b}")
+        print(f"\t{a/0}")
+        print(f"\t{a/c}")
+        print(f"\t{c/0}")
+        print(f"\t{c/a}")
     except ExceptionZeroDiv as error:
         print(error)
+    print()
 
 """
 3. Создайте собственный класс-исключение, который должен проверять содержимое списка на наличие только чисел. 
@@ -220,25 +222,62 @@ if answer == 'д':
 
 class ExceptionListOfNumbers(Exception):
     """
-
+    Класс исключение. Вызывается если введённое значение не является целым числом
     """
-    pass
+    st_not_number: str   # нечисловое значение
+
+    def __init__(self, st_not_number: str) -> None:
+        self.st_not_number = str(st_not_number)
+
+    def __str__(self):
+        return f"\tЗначение {self.st_not_number} не является целым числом! Будет проигнорировано"
 
 
-class MyList(list):
+class NumbersList(list):
     """
-
+    Класс список. Допустимы только числовые значения
     """
-    # def __init__(self):
-    #     super.__init__()
+    def __init__(self, income_list: list):
+        filtered_inc_list = []
+        for el in income_list:
+            if str(el).isdecimal():
+                filtered_inc_list.append(int(el))
+            else:
+                try:
+                    raise ExceptionListOfNumbers(str(el))
+                except ExceptionListOfNumbers as err:
+                    print(err)
+
+        super(NumbersList, self).__init__(filtered_inc_list)
 
     def append(self, __object) -> None:
-        pass
+        if str(__object).isnumeric():
+            super().append(int(__object))
+        else:
+            raise ExceptionListOfNumbers(str(__object))
+
+    def extend(self, __iterable) -> None:
+        for el in __iterable:
+            if str(el).isdecimal():
+                super().append(int(el))
+            else:
+                raise ExceptionListOfNumbers(str(el))
 
 
 answer = input("Задание 3 (д/н)? ")
 if answer == 'д':
-    pass
+    my_list = NumbersList([12, 34, 'кхм', 5656, 345.45])
+    # my_list.extend([12, 34, 5656])
+    while True:
+        try:
+            input_value = input("\tВведите целое число: ")
+            if input_value == 'стоп':
+                break
+            my_list.append(input_value)
+        except ExceptionListOfNumbers as error:
+            print(error)
+
+    print(f"\t{my_list}\n")
 
 """
 4. Начните работу над проектом «Склад оргтехники». Создайте класс, описывающий склад. А также класс «Оргтехника»,
@@ -297,7 +336,15 @@ if answer == 'д':
 
 class Complex:
     """Класс Комплексное число"""
-    pass
+
+    def __init__(self):
+        pass
+
+    def __add__(self, other):
+        pass
+
+    def __mul__(self, other):
+        pass
 
 
 answer = input("Задание 7 (д/н)? ")
