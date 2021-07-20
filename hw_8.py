@@ -171,21 +171,21 @@ class MyFloat(float):
     # def __rmod__(self, other):
     # def __rdivmod__(self, other):
 
-    def __itruediv__(self, other):   # /=
+    def __itruediv__(self, other) -> float:   # /=
         if other == 0:
             raise ExceptionZeroDiv(self.my_float, other)
         else:
             self.my_float /= other
             return self.my_float
 
-    def __ifloordiv__(self, other):   # //=
+    def __ifloordiv__(self, other) -> float:   # //=
         if other == 0:
             raise ExceptionZeroDiv(self.my_float, other)
         else:
             self.my_float //= other
             return self.my_float
 
-    def __imod__(self, other):    # %=
+    def __imod__(self, other) -> float:    # %=
         if other == 0:
             raise ExceptionZeroDiv(self.my_float, other)
         else:
@@ -201,6 +201,7 @@ if answer == 'д':
 
     # a /= 0
     # print(f"\t{divmod(a, 0)}")
+    print(f"\t{a+b}")
     try:
         print(f"\t{a / b}")
         print(f"\t{a / 0}")
@@ -217,11 +218,22 @@ if answer == 'д':
 """
 
 
-class ExceptionListOfNumbers:
+class ExceptionListOfNumbers(Exception):
     """
 
     """
     pass
+
+
+class MyList(list):
+    """
+
+    """
+    # def __init__(self):
+    #     super.__init__()
+
+    def append(self, __object) -> None:
+        pass
 
 
 answer = input("Задание 3 (д/н)? ")
