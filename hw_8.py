@@ -296,18 +296,49 @@ if answer == 'д':
 
 class OfficeEqStorage:
     """Класс - Склад оргтехники"""
-    pass
+    _unit_counter: int   # количество единиц хранения
+    _unit_names_list: list
+
+    def __init__(self):
+        self._unit_counter = 0
+        self._unit_names_list = []
+
+    def __str__(self):
+        return f"\tНа складе: {self._unit_counter} единиц хранения\n\t\t{self._unit_names_list}"
+
+    def store_unit(self, name: str):
+        self._unit_counter += 1
+        self._unit_names_list.append(name)
+        print(f"\tПолучен на склад: {name}")
+
+    def get_from_store_unit(self) -> str:
+        if self._unit_counter:
+            self._unit_counter -= 1
+            unit_name = self._unit_names_list.pop()
+            print(f"\tВыдан со склада: {unit_name}")
+            return unit_name
+        else:
+            print(f"\tСклад пуст!")
+            return "Пусто"
 
 
 class OfficeEquipment:
     """Базовый класс для офисной техники"""
-    name: str   # Название
+    _name: str   # Название
+    _type_unit: str  # Тип устройства
 
-    def __init__(self, name: str):
-        self.name = name
+    def __init__(self, name: str, type_unit: str):
+        self._name = name
+        self._type_unit = type_unit
 
     def __str__(self):
-        return f"\t{self.name}\n"
+        return f"\t{self._type_unit} {self._name}\n"
+
+    def get_name(self):
+        return self._name
+
+    def get_type(self):
+        return self._type_unit
 
 
 class Printer(OfficeEquipment):
@@ -315,11 +346,12 @@ class Printer(OfficeEquipment):
     __print_counter: int   # счётчик распечатанных страниц
 
     def __init__(self, name: str):
-        super(Printer, self).__init__(name)
+        super(Printer, self).__init__(name, "Принтер")
         self.__print_counter = 0
 
     def __str__(self):
-        return super(Printer, self).__str__() + f"\t\tСчётчик печати: {self.__print_counter}\n"
+        return super(Printer, self).__str__() + f"\t\t{self.get_type()} {self.get_name()} - " \
+                                                f"счётчик печати: {self.__print_counter}"
 
     def make_print(self):
         self.__print_counter += 1
@@ -333,11 +365,12 @@ class Scanner(OfficeEquipment):
     __scan_counter: int  # счётчик распечатанных страниц
 
     def __init__(self, name: str):
-        super(Scanner, self).__init__(name)
+        super(Scanner, self).__init__(name, "Сканер")
         self.__scan_counter = 0
 
     def __str__(self):
-        return super(Scanner, self).__str__() + f"\t\tСчётчик сканирования: {self.__scan_counter}\n"
+        return super(Scanner, self).__str__() + f"\t\t{self.get_type()} {self.get_name()} - " \
+                                                f"счётчик сканирования: {self.__scan_counter}"
 
     def make_scan(self):
         self.__scan_counter += 1
@@ -351,11 +384,12 @@ class Copier(OfficeEquipment):
     __copy_counter: int   # счётчик распечатанных страниц
 
     def __init__(self, name: str):
-        super(Copier, self).__init__(name)
+        super(Copier, self).__init__(name, "Копир")
         self.__copy_counter = 0
 
     def __str__(self):
-        return super(Copier, self).__str__() + f"\t\tСчётчик копирования: {self.__copy_counter}\n"
+        return super(Copier, self).__str__() + f"\t\t{self.get_type()} {self.get_name()} - " \
+                                               f"счётчик копирования: {self.__copy_counter}"
 
     def make_copy(self):
         self.__copy_counter += 1
@@ -367,12 +401,30 @@ class Copier(OfficeEquipment):
 answer = input("Задание 4, 5, 6 (д/н)? ")
 if answer == 'д':
     printer_1 = Printer("HP 1536")
+    printer_1.make_print()
     print(printer_1)
+
     scanner_1 = Scanner("Epson 310")
+    scanner_1.make_scan()
+    scanner_1.make_scan()
     print(scanner_1)
+
     copier_1 = Copier("Xerox 1000")
+    copier_1.make_copy()
+    copier_1.make_copy()
+    copier_1.make_copy()
     print(copier_1)
-    # print()
+
+    store = OfficeEqStorage()
+    store.get_from_store_unit()
+    store.store_unit(printer_1.get_name())
+    store.store_unit(scanner_1.get_name())
+    store.store_unit(copier_1.get_name())
+    print(store)
+    unit_1 = store.get_from_store_unit()
+    unit_2 = store.get_from_store_unit()
+    print(store)
+    print()
 
 """
 7. Реализовать проект «Операции с комплексными числами». Создайте класс «Комплексное число», реализуйте перегрузку 
