@@ -266,7 +266,7 @@ class NumbersList(list):
 
 answer = input("Задание 3 (д/н)? ")
 if answer == 'д':
-    my_list = NumbersList([12, 34, 'кхм', 5656, 345.45])
+    my_list = NumbersList([12, 34, "кхм", 5656, 345.45])
     # my_list.extend([12, 34, 5656])
     while True:
         try:
@@ -295,37 +295,84 @@ if answer == 'д':
 
 
 class OfficeEqStorage:
-    """
-
-    """
+    """Класс - Склад оргтехники"""
     pass
 
 
 class OfficeEquipment:
-    """
+    """Базовый класс для офисной техники"""
+    name: str   # Название
 
-    """
-    pass
+    def __init__(self, name: str):
+        self.name = name
+
+    def __str__(self):
+        return f"\t{self.name}\n"
 
 
 class Printer(OfficeEquipment):
     """Класс Принтер"""
-    pass
+    __print_counter: int   # счётчик распечатанных страниц
+
+    def __init__(self, name: str):
+        super(Printer, self).__init__(name)
+        self.__print_counter = 0
+
+    def __str__(self):
+        return super(Printer, self).__str__() + f"\t\tСчётчик печати: {self.__print_counter}\n"
+
+    def make_print(self):
+        self.__print_counter += 1
+
+    def get_print_counter(self):
+        return self.__print_counter
 
 
 class Scanner(OfficeEquipment):
     """Класс сканер"""
-    pass
+    __scan_counter: int  # счётчик распечатанных страниц
+
+    def __init__(self, name: str):
+        super(Scanner, self).__init__(name)
+        self.__scan_counter = 0
+
+    def __str__(self):
+        return super(Scanner, self).__str__() + f"\t\tСчётчик сканирования: {self.__scan_counter}\n"
+
+    def make_scan(self):
+        self.__scan_counter += 1
+
+    def get_scan_counter(self):
+        return self.__scan_counter
 
 
 class Copier(OfficeEquipment):
     """Класс копир"""
-    pass
+    __copy_counter: int   # счётчик распечатанных страниц
+
+    def __init__(self, name: str):
+        super(Copier, self).__init__(name)
+        self.__copy_counter = 0
+
+    def __str__(self):
+        return super(Copier, self).__str__() + f"\t\tСчётчик копирования: {self.__copy_counter}\n"
+
+    def make_copy(self):
+        self.__copy_counter += 1
+
+    def get_copy_counter(self):
+        return self.__copy_counter
 
 
 answer = input("Задание 4, 5, 6 (д/н)? ")
 if answer == 'д':
-    pass
+    printer_1 = Printer("HP 1536")
+    print(printer_1)
+    scanner_1 = Scanner("Epson 310")
+    print(scanner_1)
+    copier_1 = Copier("Xerox 1000")
+    print(copier_1)
+    # print()
 
 """
 7. Реализовать проект «Операции с комплексными числами». Создайте класс «Комплексное число», реализуйте перегрузку 
